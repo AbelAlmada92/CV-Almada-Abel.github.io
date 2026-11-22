@@ -1,0 +1,72 @@
+@let t = i18n.t().contact;
+<section class="section section-alt" id="contacto">
+  <div class="container">
+    <div class="row g-5 align-items-start">
+      <div class="col-lg-6" appReveal>
+        <h2 class="section-title"><span>06</span> {{ t.title }}</h2>
+        <p class="section-intro text-body-secondary">{{ t.intro }}</p>
+        <ul class="list-unstyled contact-list mb-0">
+          <li><i class="bi bi-envelope-fill"></i><a [href]="'mailto:' + profile.email">{{ profile.email }}</a></li>
+          <li><i class="bi bi-linkedin"></i><a [href]="profile.linkedin" target="_blank" rel="noopener">{{ profile.linkedinLabel }}</a></li>
+          <li><i class="bi bi-github"></i><a [href]="profile.github" target="_blank" rel="noopener">github.com/{{ profile.githubUser }}</a></li>
+          <li><i class="bi bi-geo-alt-fill"></i><span>{{ t.location }}</span></li>
+        </ul>
+      </div>
+
+      <div class="col-lg-6" appReveal>
+        <form class="card card-soft" [formGroup]="form" (ngSubmit)="submit()" novalidate>
+          <div class="card-body p-4 d-flex flex-column gap-3">
+            <div>
+              <label for="nombre" class="form-label fw-semibold">{{ t.form.name }}</label>
+              <input id="nombre" type="text" class="form-control" formControlName="nombre" autocomplete="name"
+                [class.is-invalid]="invalid('nombre')">
+              <div class="invalid-feedback">{{ t.form.required }}</div>
+            </div>
+            <div>
+              <label for="email" class="form-label fw-semibold">{{ t.form.email }}</label>
+              <input id="email" type="email" class="form-control" formControlName="email" autocomplete="email"
+                [class.is-invalid]="invalid('email')">
+              <div class="invalid-feedback">
+                {{ form.controls.email.hasError('required') ? t.form.required : t.form.invalidEmail }}
+              </div>
+            </div>
+            <div>
+              <label for="mensaje" class="form-label fw-semibold">{{ t.form.message }}</label>
+              <textarea id="mensaje" rows="5" class="form-control" formControlName="mensaje"
+                [class.is-invalid]="invalid('mensaje')"></textarea>
+              <div class="invalid-feedback">{{ t.form.required }}</div>
+            </div>
+
+            <input type="text" class="honeypot" formControlName="_honey" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+            <div>
+              <button type="submit" class="btn btn-primary px-4" [disabled]="status() === 'sending'">
+                @if (status() === 'sending') {
+                  <span class="spinner-border spinner-border-sm me-2" aria-hidden="true"></span>{{ t.form.sending }}
+                } @else {
+                  <i class="bi bi-send me-2"></i>{{ t.form.send }}
+                }
+              </button>
+            </div>
+
+            <div role="status" aria-live="polite">
+              @switch (status()) {
+                @case ('success') {
+                  <div class="alert alert-success mb-0 py-2">{{ t.form.success }}</div>
+                }
+                @case ('error') {
+                  <div class="alert alert-danger mb-0 py-2">
+                    {{ t.form.error }} <a [href]="'mailto:' + profile.email" class="alert-link">{{ profile.email }}</a>
+                  </div>
+                }
+                @case ('invalid') {
+                  <div class="text-danger small">{{ t.form.fixErrors }}</div>
+                }
+              }
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>

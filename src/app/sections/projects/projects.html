@@ -1,0 +1,62 @@
+@let all = i18n.t();
+@let t = all.projects;
+<section class="section section-alt" id="proyectos">
+  <div class="container">
+    <h2 class="section-title" appReveal><span>04</span> {{ t.title }}</h2>
+    <p class="section-intro text-body-secondary" appReveal>{{ t.intro }}</p>
+
+    <!-- Los proyectos se editan en src/app/i18n/content.es.ts y content.en.ts -->
+    <div class="row g-4">
+      @for (p of t.items; track p.title) {
+        <div class="col-md-6" appReveal>
+          <article class="card card-soft card-hover h-100">
+            <div class="card-body d-flex flex-column gap-3">
+              <div class="d-flex justify-content-between align-items-center">
+                <span class="icon-box"><i class="bi {{ p.icon }}"></i></span>
+                @if (p.status === 'done') {
+                  <span class="badge rounded-pill text-bg-success">{{ all.ui.statusDone }}</span>
+                } @else {
+                  <span class="badge rounded-pill text-bg-warning">{{ all.ui.statusWip }}</span>
+                }
+              </div>
+              <h3 class="h5 fw-bold mb-0">{{ p.title }}</h3>
+              <p class="text-body-secondary mb-0 flex-grow-1">{{ p.description }}</p>
+              <div class="d-flex flex-wrap gap-2">
+                @for (tag of p.tags; track tag) {
+                  <span class="badge tag tag-sm">{{ tag }}</span>
+                }
+              </div>
+              <div class="d-flex gap-3 fw-semibold">
+                <a [href]="p.repoUrl" target="_blank" rel="noopener" class="link-primary text-decoration-none">
+                  <i class="bi bi-github me-1"></i>{{ p.repoLabel }}
+                </a>
+                @if (p.demoUrl) {
+                  <a [href]="p.demoUrl" target="_blank" rel="noopener" class="link-primary text-decoration-none">
+                    <i class="bi bi-box-arrow-up-right me-1"></i>{{ all.ui.demo }}
+                  </a>
+                }
+              </div>
+            </div>
+          </article>
+        </div>
+      }
+    </div>
+
+    @if (repos().length) {
+      <h3 class="h5 fw-bold mt-5 mb-3"><i class="bi bi-github me-2"></i>{{ t.reposTitle }}</h3>
+      <div class="row g-3">
+        @for (r of repos(); track r.name) {
+          <div class="col-sm-6 col-lg-4">
+            <a class="card card-soft card-hover h-100 text-decoration-none" [href]="r.html_url" target="_blank" rel="noopener">
+              <div class="card-body d-flex flex-column gap-1">
+                <strong class="text-primary text-break">{{ r.name }}</strong>
+                <p class="small text-body-secondary mb-1 flex-grow-1">{{ r.description || t.noDescription }}</p>
+                <span class="small text-body-tertiary">{{ r.language ? r.language + ' · ' : '' }}{{ t.updated }} {{ r.pushed_at | date: 'MMM y' : undefined : i18n.lang() }}</span>
+              </div>
+            </a>
+          </div>
+        }
+      </div>
+    }
+  </div>
+</section>

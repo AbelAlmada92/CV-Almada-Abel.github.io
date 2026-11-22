@@ -1,0 +1,32 @@
+@let t = i18n.t();
+<nav class="navbar navbar-expand-lg sticky-top site-nav" [attr.aria-label]="'Main'">
+  <div class="container">
+    <a class="navbar-brand fw-bold" href="#inicio">Abel<span class="text-primary">.</span>Almada</a>
+
+    <div class="d-flex align-items-center gap-2 order-lg-last ms-auto ms-lg-3">
+      <button type="button" class="btn btn-icon btn-sm fw-semibold" (click)="i18n.toggle()"
+        [attr.aria-label]="t.ui.switchLang" [title]="t.ui.switchLang">
+        <i class="bi bi-translate me-1"></i>{{ i18n.lang() === 'es' ? 'EN' : 'ES' }}
+      </button>
+      <button type="button" class="btn btn-icon btn-sm" (click)="theme.toggle()"
+        [attr.aria-label]="t.ui.toggleTheme" [title]="t.ui.toggleTheme">
+        <i class="bi" [class.bi-sun-fill]="theme.theme() === 'dark'" [class.bi-moon-stars-fill]="theme.theme() === 'light'"></i>
+      </button>
+      <button type="button" class="btn btn-icon btn-sm d-lg-none" (click)="menuOpen.set(!menuOpen())"
+        [attr.aria-expanded]="menuOpen()" aria-controls="nav-menu" [attr.aria-label]="t.ui.openMenu">
+        <i class="bi" [class.bi-list]="!menuOpen()" [class.bi-x-lg]="menuOpen()"></i>
+      </button>
+    </div>
+
+    <div class="collapse navbar-collapse" id="nav-menu" [class.show]="menuOpen()">
+      <ul class="navbar-nav ms-lg-auto py-2 py-lg-0">
+        @for (item of t.nav; track item.id) {
+          <li class="nav-item">
+            <a class="nav-link" [href]="'#' + item.id" [class.active]="active() === item.id"
+              (click)="menuOpen.set(false)">{{ item.label }}</a>
+          </li>
+        }
+      </ul>
+    </div>
+  </div>
+</nav>

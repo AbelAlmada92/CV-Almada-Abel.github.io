@@ -1,0 +1,364 @@
+/* =========================================================
+   Estilos globales: Bootstrap 5 personalizado con los colores del CV
+   ========================================================= */
+
+// ---- Variables de Bootstrap (antes de importar) ----
+$primary: #2f7bd4;
+$success: #1f9d6b;
+$font-family-sans-serif: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+$body-color: #1e2a38;
+$body-bg: #f6f8fb;
+$border-radius: 0.6rem;
+$border-radius-lg: 0.9rem;
+$link-decoration: none;
+$link-hover-decoration: underline;
+$enable-smooth-scroll: true;
+
+// Modo oscuro
+$body-color-dark: #e6edf5;
+$body-bg-dark: #0f1722;
+$primary-text-emphasis-dark: #84bbf5;
+$link-color-dark: #5aa2f0;
+$link-hover-color-dark: #84bbf5;
+
+@import 'bootstrap/scss/bootstrap';
+
+// ---- Tokens propios ----
+:root,
+[data-bs-theme='light'] {
+  --pf-bg-alt: #eaf0f7;
+  --pf-surface: #ffffff;
+  --pf-accent-soft: #e2eefb;
+  --pf-accent-strong: #1f5fae;
+  --pf-navy: #2c3e50;
+  --pf-shadow: 0 6px 24px rgba(30, 42, 56, 0.08);
+}
+
+[data-bs-theme='dark'] {
+  --pf-bg-alt: #131d2b;
+  --pf-surface: #182436;
+  --pf-accent-soft: #1b3150;
+  --pf-accent-strong: #84bbf5;
+  --pf-navy: #0b121b;
+  --pf-shadow: 0 6px 24px rgba(0, 0, 0, 0.35);
+  --bs-primary: #5aa2f0;
+  --bs-primary-rgb: 90, 162, 240;
+  --bs-border-color: #273649;
+  --bs-secondary-color: #9aabbf;
+
+  .btn-primary {
+    --bs-btn-bg: #3f8ee0;
+    --bs-btn-border-color: #3f8ee0;
+    --bs-btn-hover-bg: #5aa2f0;
+    --bs-btn-hover-border-color: #5aa2f0;
+  }
+}
+
+html {
+  scroll-padding-top: 80px;
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+}
+
+.skip-link {
+  position: absolute;
+  top: 0.5rem;
+  left: 0.5rem;
+  z-index: 2000;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  background: var(--bs-primary);
+  color: #fff;
+}
+
+// ---- Navbar ----
+.site-nav {
+  background: color-mix(in srgb, var(--bs-body-bg) 85%, transparent);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--bs-border-color);
+
+  .nav-link {
+    border-radius: 0.5rem;
+    padding-inline: 0.75rem !important;
+    font-weight: 500;
+    color: var(--bs-secondary-color);
+
+    &:hover,
+    &.active {
+      color: var(--bs-primary);
+      background: var(--pf-accent-soft);
+    }
+  }
+}
+
+.btn-icon {
+  min-width: 40px;
+  height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--bs-border-color);
+  background: var(--pf-surface);
+  color: var(--bs-body-color);
+
+  &:hover {
+    color: var(--bs-primary);
+    border-color: var(--bs-primary);
+    background: var(--pf-surface);
+  }
+}
+
+// ---- Hero ----
+.hero {
+  padding: 4.5rem 0 5rem;
+  background: radial-gradient(900px 400px at 85% 0%, var(--pf-accent-soft), transparent 70%), var(--bs-body-bg);
+}
+
+.availability {
+  font-size: 0.9rem;
+  white-space: normal;
+  text-align: left;
+}
+
+.status-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--bs-success);
+  box-shadow: 0 0 0 4px rgba(var(--bs-success-rgb), 0.25);
+}
+
+.hero-photo {
+  width: 220px;
+  height: 220px;
+  object-fit: cover;
+  object-position: center 25%;
+  border: 6px solid var(--pf-surface);
+}
+
+// ---- Secciones ----
+.section {
+  padding: 5rem 0;
+}
+
+.section-alt {
+  background: var(--pf-bg-alt);
+}
+
+.section-title {
+  font-size: clamp(1.6rem, 3vw, 2.1rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin-bottom: 1.75rem;
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+
+  span {
+    font-size: 0.95rem;
+    color: var(--bs-primary);
+    font-weight: 700;
+    font-family: var(--bs-font-monospace);
+  }
+}
+
+.section-intro {
+  margin: -0.75rem 0 2rem;
+  max-width: 65ch;
+}
+
+.about-text {
+  font-size: 1.05rem;
+}
+
+.sub-title {
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--bs-primary);
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+// ---- Tarjetas ----
+.card-soft {
+  background: var(--pf-surface);
+  border: 1px solid var(--bs-border-color);
+  border-radius: var(--bs-border-radius-lg);
+  box-shadow: var(--pf-shadow);
+}
+
+.card-hover {
+  transition: transform 0.2s, border-color 0.2s;
+
+  &:hover {
+    transform: translateY(-3px);
+    border-color: var(--bs-primary);
+  }
+}
+
+.icon-box {
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  border-radius: 12px;
+  background: var(--pf-accent-soft);
+  color: var(--bs-primary);
+  font-size: 1.2rem;
+}
+
+.tag {
+  background: var(--pf-accent-soft);
+  color: var(--pf-accent-strong);
+  font-weight: 500;
+  font-size: 0.82rem;
+  padding: 0.4em 0.7em;
+  white-space: normal;
+  text-align: left;
+}
+
+.tag-sm {
+  font-size: 0.75rem;
+}
+
+// ---- Experiencia (línea de tiempo) ----
+.timeline {
+  position: relative;
+  padding-left: 1.75rem;
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: 7px;
+    top: 6px;
+    bottom: 6px;
+    width: 2px;
+    background: var(--bs-border-color);
+  }
+}
+
+.timeline-item {
+  position: relative;
+  padding-bottom: 1.5rem;
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: -1.75rem;
+    top: 5px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--pf-surface);
+    border: 3px solid var(--bs-primary);
+  }
+}
+
+.bullets {
+  list-style: none;
+  padding: 0;
+
+  li {
+    position: relative;
+    padding-left: 1.1rem;
+    margin-bottom: 0.35rem;
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: 2px;
+      top: 0.65em;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--bs-primary);
+    }
+  }
+}
+
+// ---- Contacto ----
+.contact-list li {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  padding: 0.5rem 0;
+  word-break: break-word;
+
+  i {
+    width: 20px;
+    color: var(--bs-primary);
+    text-align: center;
+  }
+}
+
+.honeypot {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+
+// ---- Footer ----
+.site-footer {
+  background: var(--pf-navy);
+  color: #c9d6e4;
+
+  .to-top {
+    width: 38px;
+    height: 38px;
+    background: rgba(255, 255, 255, 0.08);
+    color: #fff;
+
+    &:hover {
+      background: var(--bs-primary);
+    }
+  }
+}
+
+// ---- Animación de entrada ----
+.reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+
+  &.visible {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .card-hover {
+    transition: none;
+  }
+}
+
+// ---- Responsive ----
+@include media-breakpoint-down(lg) {
+  .hero {
+    padding: 3rem 0 3.5rem;
+  }
+  .hero-photo {
+    width: 160px;
+    height: 160px;
+  }
+  .section {
+    padding: 3.5rem 0;
+  }
+}
+
+@include media-breakpoint-down(sm) {
+  .hero .btn-lg {
+    flex: 1 1 auto;
+  }
+}
